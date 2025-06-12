@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lelulog_prototype/screens/product_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -47,7 +48,7 @@ class HomePage extends StatelessWidget {
                       icon: Icons.receipt_long,
                       label: 'All Sales',
                       onTap: () {
-                        // Navigate to All Sales Page
+                       // Navigasi ke halaman all Sale 
                       },
                     ),
                     const SizedBox(height: 16),
@@ -56,7 +57,10 @@ class HomePage extends StatelessWidget {
                       icon: Icons.shopping_bag,
                       label: 'Products',
                       onTap: () {
-                        // Navigate to Products Page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProductCatalog()),
+                        );
                       },
                     ),
                     const SizedBox(height: 16),
@@ -65,7 +69,7 @@ class HomePage extends StatelessWidget {
                       icon: Icons.shopping_cart,
                       label: 'New Sale',
                       onTap: () {
-                        // Navigate to New Sale Page
+                        // Navigasi ke halaman New Sale
                       },
                     ),
                   ],
