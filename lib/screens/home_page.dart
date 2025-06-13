@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lelulog_prototype/screens/product_page.dart';
+import 'new_sales_page.dart';
+import 'product_page.dart';
+import 'all_sales_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final String token;
+  final int userId;
+
+  const HomePage({
+    super.key,
+    required this.token,
+    required this.userId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,35 +20,41 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              color: Colors.black,
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/images/lelulog_logo.png',
-                    height: 80,
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.yellow,
-                    child: const Text(
-                      'YOUR LOGISTICS COMPANION APP',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
+            // Solid yellow header (no rounding)
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.only(top: 16, bottom: 8),
+            color: Colors.yellow[700],
+            child: Center(
+              child: Text(
+                'YOUR LOGISTICS COMPANION APP',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
-            const SizedBox(height: 24),
+          ),
+          // Black band with logo + name
+          Container(
+            width: double.infinity,
+            color: Colors.black,
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/lelulog_logo.png',
+                  height: 120,
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -47,30 +62,39 @@ class HomePage extends StatelessWidget {
                       context,
                       icon: Icons.receipt_long,
                       label: 'All Sales',
-                      onTap: () {
-                       // Navigasi ke halaman all Sale 
-                      },
+                      onTap: () => Navigator.push(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (_) => AllSalesPage(token: token),
+                          )
+                        )
                     ),
                     const SizedBox(height: 16),
                     _buildMenuButton(
                       context,
                       icon: Icons.shopping_bag,
                       label: 'Products',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProductCatalog()),
-                        );
-                      },
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                           builder: (_) => ProductCatalog(token: token),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     _buildMenuButton(
                       context,
                       icon: Icons.shopping_cart,
                       label: 'New Sale',
-                      onTap: () {
-                        // Navigasi ke halaman New Sale
-                      },
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => NewSalesPage(
+                            token: token,
+                            userId: userId,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -83,48 +107,30 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildMenuButton(BuildContext context,
-      {required IconData icon, required String label, required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-          ],
+          {required IconData icon,
+          required String label,
+          required VoidCallback onTap}) =>
+      GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
+          ),
+          child: Row(
+            children: [
+              const SizedBox(width: 24),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(color: Colors.yellow, shape: BoxShape.circle),
+                child: Icon(icon, color: Colors.black, size: 24),
+              ),
+              const SizedBox(width: 24),
+              Text(label, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
-        child: Row(
-          children: [
-            const SizedBox(width: 24),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.yellow,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                color: Colors.black,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 24),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+      );
 }

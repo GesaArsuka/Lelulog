@@ -10,26 +10,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
-
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _authService = AuthService();
   bool _isLoading = false;
 
   void _handleLogin() async {
     setState(() => _isLoading = true);
 
-    final success = await _authService.login(
+    final result = await _authService.login(
       _usernameController.text.trim(),
       _passwordController.text,
     );
-
     setState(() => _isLoading = false);
 
-    if (success) {
+    if (result != null) {
+      final token = result['token'] as String;
+      final userId = result['userId'] as int;
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomePage()),
+        MaterialPageRoute(
+          builder: (_) => HomePage(token: token, userId: userId),
+        ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -42,28 +45,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset(
-                  'assets/images/lelulog_logo.png',
-                  height: 150,
-                ),
+                Image.asset('assets/images/lelulog_logo.png', height: 150),
                 const SizedBox(height: 32),
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
+                    boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8)],
                   ),
                   child: Column(
                     children: [
@@ -87,9 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                          ),
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                           onPressed: _isLoading ? null : _handleLogin,
                           child: _isLoading
                               ? const CircularProgressIndicator(color: Colors.white)
