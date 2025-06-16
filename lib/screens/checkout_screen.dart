@@ -49,11 +49,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
     });
 
     final uri = Uri.parse(
-      'http://10.0.2.2:8000/api/transactions/\${widget.transactionId}/finalize'
+      'https://0b05-2404-c0-2c10-00-32f0-6f18.ngrok-free.app/api/transactions/${widget.transactionId}/finalize'
     );
 
     var request = http.MultipartRequest('POST', uri)
-      ..headers['Authorization'] = 'Bearer \${widget.token}'
+      ..headers['Authorization'] = 'Bearer ${widget.token}'
       ..fields['payment_method'] = selectedPaymentMethod;
 
     request.files.add(
@@ -93,7 +93,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Total Price: Rp \${widget.totalPrice}",
+              "Total Price: Rp ${widget.totalPrice}",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://10.0.2.2:8000/api',
+    baseUrl: 'https://0b05-2404-c0-2c10-00-32f0-6f18.ngrok-free.app/api/',
     headers: {'Accept': 'application/json'},
   ));
 

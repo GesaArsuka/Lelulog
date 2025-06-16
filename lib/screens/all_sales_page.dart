@@ -143,19 +143,19 @@ class _AllSalesPageState extends State<AllSalesPage> {
 
           SizedBox(height: 12),
           // Edit button
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.black,
-              ),
-              onPressed: () {
-                // TODO: implement edit record
-              },
-              child: Text('Edit Record'),
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.centerLeft,
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       backgroundColor: Colors.grey[300],
+          //       foregroundColor: Colors.black,
+          //     ),
+          //     onPressed: () {
+          //       // TODO: implement edit record
+          //     },
+          //     child: Text('Edit Record'),
+          //   ),
+          // ),
         ]),
       ),
     );

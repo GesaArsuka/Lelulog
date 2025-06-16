@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/transaction.dart';
 
 class TransactionApi {
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl = 'https://0b05-2404-c0-2c10-00-32f0-6f18.ngrok-free.app/api'; 
 
   //create temp session for temp cart
   static Future<int?> createTemporaryTransaction({

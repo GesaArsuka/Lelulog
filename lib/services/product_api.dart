@@ -5,7 +5,7 @@ import 'package:http_parser/http_parser.dart';
 import '../models/product.dart';
 
 class ProductApi {
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl = 'https://0b05-2404-c0-2c10-00-32f0-6f18.ngrok-free.app/api';
 
   /// Fetch all products. If [token] is provided, add Authorization header.
   static Future<List<Product>> fetchProducts([String? token]) async {

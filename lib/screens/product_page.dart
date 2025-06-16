@@ -45,7 +45,7 @@ class _ProductCatalogState extends State<ProductCatalog> {
   Widget _buildProductCard(Product p, int index) {
   final hasImage = p.imagePath != null && p.imagePath!.isNotEmpty;
   final imageUrl = hasImage
-      ? 'http://10.0.2.2:8000/storage/${p.imagePath!}'
+      ? 'https://0b05-2404-c0-2c10-00-32f0-6f18.ngrok-free.app/storage/${p.imagePath!}'
       : null;
 
   return GestureDetector(

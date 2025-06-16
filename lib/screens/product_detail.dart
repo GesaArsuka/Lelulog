@@ -167,7 +167,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       items: [0, 10, 20, 30]
                           .map((d) => DropdownMenuItem(
                                 value: d,
-                                child: Text('\$d%'),
+                                child: Text('$d%'),
                               ))
                           .toList(),
                       onChanged: (v) {
